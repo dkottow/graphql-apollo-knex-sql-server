@@ -1,0 +1,63 @@
+  # Comments in GraphQL are defined with the hash (#) symbol.
+
+  # The "Query" type is the root of all GraphQL queries.
+  # (A "Mutation" type will be covered later on.)
+  type Query {
+    visits(filter: Filter): [Visit]
+  }
+
+  type Mutation {
+      visitsInsert(visits: [VisitInput]): [Int]
+      visitUpdate(id: ID!, visit: VisitInput): Int  
+  }
+
+  type Visit {
+    id: ID!,
+    title: String,
+    address: String,
+    planned_date: Date
+  }
+
+  input VisitInput {
+    title: String,
+    address: String,
+    planned_date: Date
+  }
+
+  input Filter {
+    where: [WhereClause],
+    orderBy: [OrderByClause],
+    limit: Int
+  }
+
+  input WhereClause {
+    field: String,
+    op: WhereOperator,
+    value: String,
+    values: [String]
+  }
+ 
+  input OrderByClause {
+    field: String,
+    dir: OrderByDirection
+  }
+
+  enum WhereOperator {
+    EQ,
+    GT,
+    GE,
+    LT,
+    LE,
+    IN,
+    BTWN,
+    LIKE
+  }  
+
+  enum OrderByDirection {
+    ASC,
+    DESC
+  }
+  
+  scalar Date  
+  scalar DateTime
+  
